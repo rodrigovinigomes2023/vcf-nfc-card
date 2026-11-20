@@ -36,6 +36,10 @@ O iPhone lê a etiqueta em pedaços de 240 bytes, ~50 ms cada:
 
 Por isso a tela mostra o **progresso real da leitura** e **vibra** quando termina — e avisa se os celulares se afastaram cedo.
 
+### Durante a leitura
+
+![Pronto para encostar, lendo 40% e pronto](docs/leitura.png)
+
 ## Recursos
 
 ![Telas: meus perfis, pronto para encostar, editar perfil, adicionar campo](docs/telas.png)
