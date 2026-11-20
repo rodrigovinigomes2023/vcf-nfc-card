@@ -38,7 +38,7 @@ Por isso a tela mostra o **progresso real da leitura** e **vibra** quando termin
 
 ## Recursos
 
-![Telas: meus perfis, pronto para encostar, editar perfil](docs/telas.png)
+![Telas: meus perfis, pronto para encostar, editar perfil, adicionar campo](docs/telas.png)
 
 - Vários **perfis** (pessoal, trabalho, loja…), cada um com cor e foto/logo
 - Campos: nome, cargo, empresa, telefones, WhatsApp, e-mails, site, Instagram, LinkedIn, TikTok, YouTube, GitHub, Facebook, endereço, aniversário, observação
