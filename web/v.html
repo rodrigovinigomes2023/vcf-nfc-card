@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Contato</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root { --fundo:#F7F6F2; --texto:#1A1A1A; --suave:#5F5E5A; --cartao:#FFFFFF; --linha:#E2DFD7; --cor:#1D3FD8; --sobre-cor:#FFFFFF; }
+  @media (prefers-color-scheme: dark) { :root { --fundo:#111214; --texto:#F2F1EC; --suave:#A3A29C; --cartao:#1C1D21; --linha:#2E2F34; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--fundo); color:var(--texto); font-family: 'Inter', system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+  .faixa { height: 120px; background: var(--cor); }
+  main { max-width: 440px; margin: -76px auto 0; padding: 0 20px 48px; display:flex; flex-direction:column; align-items:center; text-align:center; }
+  .foto { width:152px; height:152px; border-radius:50%; object-fit:cover; border: 5px solid var(--fundo); background: var(--cor); }
+  .iniciais { width:152px; height:152px; border-radius:50%; border: 5px solid var(--fundo); background: var(--cor); color: var(--sobre-cor); display:flex; align-items:center; justify-content:center; font: 700 52px 'Inter Tight', sans-serif; }
+  h1 { margin:16px 0 0; font: 700 30px/1.1 'Inter Tight', sans-serif; letter-spacing:-0.02em; }
+  .apelido { margin:6px 0 0; color:var(--suave); font-size:15px; }
+  .sub { margin:8px 0 0; color:var(--suave); font-size:16px; }
+  .salvar { margin-top:24px; width:100%; padding:17px; border:none; border-radius:16px; background:var(--cor); color:var(--sobre-cor); font: 600 17px 'Inter', sans-serif; cursor:pointer; }
+  .outro { margin-top:10px; background:none; border:none; color:var(--suave); font: 500 13px 'Inter', sans-serif; text-decoration: underline; cursor:pointer; padding:8px; }
+  .lista { width:100%; margin-top:20px; background:var(--cartao); border-radius:18px; overflow:hidden; text-align:left; }
+  .lista a, .lista div.item { display:flex; align-items:center; gap:14px; padding:14px 16px; color:var(--texto); text-decoration:none; border-top:1px solid var(--linha); }
+  .lista > :first-child { border-top:none; }
+  .ic { width:36px; height:36px; flex:none; border-radius:10px; background: color-mix(in srgb, var(--cor) 14%, transparent); color: var(--cor); display:flex; align-items:center; justify-content:center; }
+  @supports not (background: color-mix(in srgb, red 10%, white)) { .ic { background: rgba(29,63,216,0.12); } }
+  .ic svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .rot { font-size:12px; color:var(--suave); }
+  .val { font-size:15px; font-weight:500; word-break: break-word; }
+  .obs { width:100%; margin-top:20px; padding:16px; background:var(--cartao); border-radius:18px; text-align:left; font-size:15px; line-height:1.5; white-space:pre-line; }
+  .rodape { margin-top:28px; font-size:12px; color:var(--suave); }
+  .rodape a { color:var(--suave); }
+</style>
+</head>
+<body>
+<div class="faixa"></div>
+<main id="m">
+  <div id="avatar"></div>
+  <h1 id="nome"></h1>
+  <p class="apelido" id="apelido" hidden></p>
+  <p class="sub" id="sub" hidden></p>
+  <button class="salvar" id="salvar">Salvar contato</button>
+  <button class="outro" id="salvar2">Não salvou? Tentar de outro jeito</button>
+  <div class="lista" id="lista"></div>
+  <div class="obs" id="obs" hidden></div>
+  <p class="rodape">Os dados vieram no próprio link — nada fica guardado em servidor.<br>Feito com <a href="https://rodrigo-gomes.vercel.app">VCF NFC Card</a></p>
+</main>
+<script>
+(() => {
+  const q = new URLSearchParams(location.hash.slice(1));
+  const g = (k) => (q.get(k) || '').trim();
+  const $ = (id) => document.getElementById(id);
+
+  // cor do perfil
+  const k = g('k').replace(/[^0-9a-f]/gi, '');
+  if (k.length === 6) {
+    const r = parseInt(k.slice(0, 2), 16), gg = parseInt(k.slice(2, 4), 16), b = parseInt(k.slice(4, 6), 16);
+    const clara = (0.299 * r + 0.587 * gg + 0.114 * b) / 255 > 0.62;
+    document.documentElement.style.setProperty('--cor', '#' + k);
+    document.documentElement.style.setProperty('--sobre-cor', clara ? '#2B1600' : '#FFFFFF');
+  }
+
+  const nome = g('n') || 'Contato';
+  document.title = nome;
+  $('nome').textContent = nome;
+  if (g('a')) { $('apelido').textContent = '“' + g('a') + '”'; $('apelido').hidden = false; }
+  const sub = [g('c'), g('o')].filter(Boolean).join(' · ');
+  if (sub) { $('sub').textContent = sub; $('sub').hidden = false; }
+
+  let f = g('f').replace(/-/g, '+').replace(/_/g, '/');
+  while (f.length % 4) f += '=';
+  if (f) { const i = document.createElement('img'); i.className = 'foto'; i.alt = 'Foto de ' + nome; i.src = 'data:image/jpeg;base64,' + f; $('avatar').appendChild(i); }
+  else {
+    const p = nome.split(/\s+/); const ini = (p[0][0] || '') + (p.length > 1 ? p[p.length - 1][0] : '');
+    const d = document.createElement('div'); d.className = 'iniciais'; d.textContent = ini.toUpperCase(); $('avatar').appendChild(d);
+  }
+
+  // ---------- normalização ----------
+  const dig = (s) => s.replace(/\D/g, '');
+  const telE164 = (s) => { const d = dig(s); if (!d) return ''; if (s.trim().startsWith('+')) return '+' + d; if (d.length === 10 || d.length === 11) return '+55' + d; if (d.startsWith('55') && d.length >= 12) return '+' + d; return d; };
+  const semArroba = (s) => s.replace(/^@/, '');
+  const ehUrl = (s) => /^(https?:\/\/)?[\w.-]+\.[a-z]{2,}\//i.test(s) || /^https?:\/\//i.test(s);
+  const comHttp = (s) => /^https?:\/\//i.test(s) ? s : 'https://' + s;
+  const rede = {
+    ig: (s) => ehUrl(s) ? comHttp(s) : 'https://instagram.com/' + semArroba(s),
+    tk: (s) => ehUrl(s) ? comHttp(s) : 'https://tiktok.com/@' + semArroba(s),
+    yt: (s) => ehUrl(s) ? comHttp(s) : 'https://youtube.com/@' + semArroba(s),
+    gh: (s) => ehUrl(s) ? comHttp(s) : 'https://github.com/' + semArroba(s),
+    fb: (s) => ehUrl(s) ? comHttp(s) : 'https://facebook.com/' + semArroba(s),
+    li: (s) => ehUrl(s) || s.includes('linkedin') ? comHttp(s) : 'https://linkedin.com/in/' + semArroba(s),
+  };
+  const ICON = {
+    tel: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
+    wa: '<path d="M3 21l1.6-4.8A8.5 8.5 0 1 1 8 19.6z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.6-1.9-.9-.9.9a4 4 0 0 1-2.1-2.1l.9-.9-.9-1.9z"/>',
+    mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+    web: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+    pin: '<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+    bolo: '<path d="M4 21h16v-8H4zM4 16c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 4 0"/><path d="M12 13V9M12 6v.01"/>',
+    rede: '<circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/>',
+  };
+
+  const itens = [];
+  const add = (ic, rot, val, href) => itens.push({ ic, rot, val, href });
+  if (g('t')) add('tel', 'Celular', g('t'), 'tel:' + telE164(g('t')));
+  if (g('w')) add('wa', 'WhatsApp', g('w'), 'https://wa.me/' + telE164(g('w')).replace('+', ''));
+  if (g('t2')) add('tel', 'Outro telefone', g('t2'), 'tel:' + telE164(g('t2')));
+  if (g('tf')) add('tel', 'Telefone fixo', g('tf'), 'tel:' + telE164(g('tf')));
+  if (g('e')) add('mail', 'E-mail', g('e'), 'mailto:' + g('e'));
+  if (g('e2')) add('mail', 'E-mail do trabalho', g('e2'), 'mailto:' + g('e2'));
+  if (g('u')) add('web', 'Site', g('u').replace(/^https?:\/\//, ''), comHttp(g('u')));
+  const nomesRede = { ig: 'Instagram', li: 'LinkedIn', tk: 'TikTok', yt: 'YouTube', gh: 'GitHub', fb: 'Facebook' };
+  for (const r in nomesRede) if (g(r)) add('rede', nomesRede[r], g(r), rede[r](g(r)));
+  if (g('end')) add('pin', 'Endereço', g('end'), 'https://maps.google.com/?q=' + encodeURIComponent(g('end')));
+  if (g('bd')) add('bolo', 'Aniversário', g('bd'), '');
+
+  for (const it of itens) {
+    const el = document.createElement(it.href ? 'a' : 'div');
+    if (it.href) { el.href = it.href; if (/^https/.test(it.href)) { el.target = '_blank'; el.rel = 'noopener'; } }
+    else el.className = 'item';
+    const ic = document.createElement('span'); ic.className = 'ic';
+    ic.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICON[it.ic] + '</svg>';
+    const tx = document.createElement('span');
+    const r = document.createElement('div'); r.className = 'rot'; r.textContent = it.rot;
+    const v = document.createElement('div'); v.className = 'val'; v.textContent = it.val;
+    tx.append(r, v); el.append(ic, tx); $('lista').appendChild(el);
+  }
+  if (!itens.length) $('lista').hidden = true;
+  if (g('obs')) { $('obs').textContent = g('obs'); $('obs').hidden = false; }
+
+  // ---------- vCard ----------
+  const esc = (s) => s.replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/([,;])/g, '\\$1');
+  function vcard() {
+    const p = (g('n') || '').split(/\s+/);
+    const sobren = p.length > 1 ? p.slice(-1)[0] : '', prim = p.length > 1 ? p.slice(0, -1).join(' ') : (p[0] || '');
+    const l = ['BEGIN:VCARD', 'VERSION:3.0', 'FN:' + esc(nome), 'N:' + esc(sobren) + ';' + esc(prim) + ';;;'];
+    if (g('a')) l.push('NICKNAME:' + esc(g('a')));
+    if (g('o')) l.push('ORG:' + esc(g('o')));
+    if (g('c')) l.push('TITLE:' + esc(g('c')));
+    if (g('t')) l.push('TEL;TYPE=CELL:' + telE164(g('t')));
+    if (g('w') && dig(g('w')) !== dig(g('t'))) l.push('TEL;TYPE=CELL:' + telE164(g('w')));
+    if (g('t2')) l.push('TEL;TYPE=CELL:' + telE164(g('t2')));
+    if (g('tf')) l.push('TEL;TYPE=VOICE:' + telE164(g('tf')));
+    if (g('e')) l.push('EMAIL;TYPE=INTERNET:' + g('e'));
+    if (g('e2')) l.push('EMAIL;TYPE=INTERNET,WORK:' + g('e2'));
+    if (g('u')) l.push('URL:' + comHttp(g('u')));
+    if (g('w')) l.push('X-SOCIALPROFILE;TYPE=whatsapp:https://wa.me/' + telE164(g('w')).replace('+', ''));
+    const tipos = { ig: 'instagram', li: 'linkedin', tk: 'tiktok', yt: 'youtube', gh: 'github', fb: 'facebook' };
+    for (const r in tipos) if (g(r)) l.push('X-SOCIALPROFILE;TYPE=' + tipos[r] + ':' + rede[r](g(r)));
+    if (g('end')) l.push('ADR;TYPE=HOME:;;' + esc(g('end')) + ';;;;');
+    const bd = g('bd').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if (bd) l.push('BDAY:' + bd[3] + '-' + bd[2].padStart(2, '0') + '-' + bd[1].padStart(2, '0'));
+    if (g('obs')) l.push('NOTE:' + esc(g('obs')));
+    if (f) l.push('PHOTO;ENCODING=b;TYPE=JPEG:' + f);
+    l.push('END:VCARD', '');
+    return l.join('\r\n');
+  }
+  const arq = nome.normalize('NFD').replace(/[^\w]+/g, '_') + '.vcf';
+  $('salvar').onclick = () => {
+    const blob = new Blob([vcard()], { type: 'text/vcard' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = arq;
+    document.body.appendChild(a); a.click(); a.remove();
+  };
+  $('salvar2').onclick = () => { location.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard()); };
+})();
+</script>
+</body>
+</html>

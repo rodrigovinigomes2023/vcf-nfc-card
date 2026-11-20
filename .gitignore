@@ -1,0 +1,8 @@
+out/
+*.apk
+*.idsig
+*.jks
+*.keystore
+.vercel
+.env*
+web/.vercel
