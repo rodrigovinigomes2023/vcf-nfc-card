@@ -1,5 +1,7 @@
 # VCF NFC Card
 
+![VCF NFC Card](docs/banner.jpg)
+
 Cartão de visita digital por **NFC**: encoste o celular Android no do outro (iPhone ou Android) e o contato abre na hora, **com foto**, pronto para salvar na agenda.
 
 📥 **Baixar o APK:** [vcf-nfc-card.apk](https://github.com/rodrigovinigomes2023/vcf-nfc-card/releases/latest)
@@ -35,6 +37,8 @@ O iPhone lê a etiqueta em pedaços de 240 bytes, ~50 ms cada:
 Por isso a tela mostra o **progresso real da leitura** e **vibra** quando termina — e avisa se os celulares se afastaram cedo.
 
 ## Recursos
+
+![Telas: meus perfis, pronto para encostar, editar perfil](docs/telas.png)
 
 - Vários **perfis** (pessoal, trabalho, loja…), cada um com cor e foto/logo
 - Campos: nome, cargo, empresa, telefones, WhatsApp, e-mails, site, Instagram, LinkedIn, TikTok, YouTube, GitHub, Facebook, endereço, aniversário, observação
