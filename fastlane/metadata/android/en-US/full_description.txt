@@ -1,0 +1,17 @@
+<p>Digital business card over <b>NFC</b>. Tap the back of your Android against another phone — <b>iPhone or Android</b> — and your contact opens instantly, <b>with photo</b>, ready to save. The other person doesn't need to install anything.</p>
+
+<p><b>Features</b></p>
+<ul>
+<li>Multiple profiles (personal, work…), each with its own color and photo or logo</li>
+<li>All vCard fields: phones, e-mails, website, social networks, address, birthday, notes</li>
+<li>Real progress screen while the other phone reads, with vibration when done</li>
+<li>QR code and "Send link" for phones without NFC</li>
+</ul>
+
+<p><b>Privacy</b></p>
+<p>No account, no ads, no tracking, no data collection. Profiles stay on your phone. When you tap, the data travels inside a link, after the <i>#</i> — the part browsers never send to the server. The page that builds the contact is static and its source is in the repository too.</p>
+
+<p><b>How it works</b></p>
+<p>The app uses Host Card Emulation to act as an NFC Forum Type 4 tag holding a link. iPhones only open NFC links on their own, so the contact is sent as a link to a page that generates the vCard.</p>
+
+<p>Requires an Android phone with NFC and HCE support. The app interface is in Portuguese.</p>

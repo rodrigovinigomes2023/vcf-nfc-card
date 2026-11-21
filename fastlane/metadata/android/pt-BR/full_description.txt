@@ -1,0 +1,17 @@
+<p>Cartão de visita digital por <b>NFC</b>. Encoste a traseira do seu Android na do outro celular — <b>iPhone ou Android</b> — e o seu contato abre na hora, <b>com foto</b>, pronto para salvar na agenda. Quem recebe não precisa instalar nada.</p>
+
+<p><b>Recursos</b></p>
+<ul>
+<li>Vários perfis (pessoal, trabalho…), cada um com cor e foto ou logo</li>
+<li>Todos os campos de um vCard: telefones, e-mails, site, redes sociais, endereço, aniversário, observação</li>
+<li>Tela de progresso real durante a leitura, com vibração quando termina</li>
+<li>QR code e "Enviar link" para quem não tem NFC</li>
+</ul>
+
+<p><b>Privacidade</b></p>
+<p>O app não tem conta, anúncio nem rastreio, e não coleta nada. Os dados do perfil ficam no seu celular. Ao encostar, eles vão para o outro celular dentro de um link, depois do <i>#</i> — parte que o navegador nunca envia ao servidor. A página que monta o contato é estática e o código dela também está no repositório.</p>
+
+<p><b>Como funciona</b></p>
+<p>O app usa Host Card Emulation para se comportar como uma etiqueta NFC Forum Type 4 com um link. O iPhone só abre links lidos por NFC sozinho, por isso o contato vai como link para uma página que gera o vCard.</p>
+
+<p>Requer um Android com NFC e suporte a HCE.</p>

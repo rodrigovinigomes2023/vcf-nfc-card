@@ -1,0 +1,1 @@
+Multiple profiles with photo or logo, all vCard fields, progress screen with vibration, QR code and share link.

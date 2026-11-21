@@ -1,0 +1,1 @@
+Vários perfis com foto ou logo, todos os campos do vCard, tela de progresso com vibração, QR code e envio de link.

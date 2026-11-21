@@ -80,3 +80,7 @@ Projeto feito por **Rodrigo Gomes** em parceria com o **Claude** (Anthropic): eu
 
 - Fontes [Inter e Inter Tight](https://github.com/rsms/inter) — SIL Open Font License 1.1 (`assets/fontes/OFL.txt`)
 - Gerador de QR code: [Nayuki QR-Code-generator](https://github.com/nayuki/QR-Code-generator) — MIT
+
+## Licença
+
+[GPL-3.0](LICENSE) © 2026 Rodrigo Gomes. Inclui [QR Code generator](https://www.nayuki.io/page/qr-code-generator-library) de Project Nayuki (MIT) e as fontes Inter e Inter Tight (SIL Open Font License, ver `assets/fontes/OFL.txt`).
