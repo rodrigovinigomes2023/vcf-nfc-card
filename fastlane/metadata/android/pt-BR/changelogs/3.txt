@@ -1,0 +1,1 @@
+Segurança e privacidade, após revisão de código (revisoes/v2.0.md): o cartão só é entregue com a tela "Pronto para encostar" aberta e o celular desbloqueado; um comando NFC malformado não fecha mais o app.

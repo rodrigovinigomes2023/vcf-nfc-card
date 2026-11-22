@@ -1,0 +1,1 @@
+Security and privacy fixes after a code review (revisoes/v2.0.md): the card is only shared while the "Ready to tap" screen is open and the phone is unlocked; a malformed NFC command no longer crashes the app.

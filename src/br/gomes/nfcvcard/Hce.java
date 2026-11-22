@@ -55,12 +55,23 @@ public class Hce extends HostApduService {
 
     static void avisa(Runnable r) { if (ouvinte != null) principal.post(r); }
 
+    static final byte[] TAMANHO_ERRADO = {0x67, 0x00};
+    static final byte[] FALHA = {0x6F, 0x00};
+
     @Override public byte[] processCommandApdu(byte[] c, Bundle extras) {
-        if (c.length < 4) return ERRO;
+        // Revisão v2.0 (A1): nenhum comando malformado pode derrubar o app.
+        try { return responde(c); } catch (Throwable t) { return FALHA; }
+    }
+
+    byte[] responde(byte[] c) {
+        if (c == null || c.length < 4) return ERRO;
         int ins = c[1] & 0xFF;
         if (ins == 0xA4) { // SELECT
+            // Revisão v2.0 (A2): só entrega o cartão com a tela "Pronto para encostar" aberta.
+            if (ouvinte == null) { ndef = null; arquivo = 0; return ERRO; }
             int lc = c.length > 4 ? c[4] & 0xFF : 0;
-            byte[] d = Arrays.copyOfRange(c, 5, Math.min(c.length, 5 + lc));
+            if (c.length < 5 + lc) return TAMANHO_ERRADO;
+            byte[] d = Arrays.copyOfRange(c, 5, 5 + lc);
             if (c[2] == 0x04 && Arrays.equals(d, AID)) {
                 if (ndef == null) ndef = montaNdef();
                 arquivo = 0;
