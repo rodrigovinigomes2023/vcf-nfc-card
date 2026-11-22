@@ -6,6 +6,10 @@ Cartão de visita digital por **NFC**: encoste o celular Android no do outro (iP
 
 📥 **Baixar o APK:** [vcf-nfc-card.apk](https://github.com/rodrigovinigomes2023/vcf-nfc-card/releases/latest)
 
+[<img src="docs/badge_obtainium.png" alt="Get it on Obtainium" height="60">](https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/rodrigovinigomes2023/vcf-nfc-card)
+
+🔄 **Quer receber as atualizações sozinho?** Instale o [Obtainium](https://github.com/ImranR98/Obtainium) e toque no botão acima, ou cole este link nele: `https://github.com/rodrigovinigomes2023/vcf-nfc-card`. A cada versão nova, ele avisa e atualiza com um toque.
+
 ## Como funciona
 
 ```
