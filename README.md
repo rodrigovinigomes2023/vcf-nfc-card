@@ -76,9 +76,20 @@ sdkmanager "platforms;android-34" "build-tools;34.0.0"
 
 Requer JDK 17 (`javac` do 21 gera classes que o `d8` 34 não aceita). A chave de assinatura fica fora do repositório (`CHAVE=/caminho/da/chave.jks ./build.sh`).
 
-## Feito com IA
+## Como este projeto foi feito
 
-Projeto feito por **Rodrigo Gomes** em parceria com o **Claude** (Anthropic): eu defini o produto, decidi o visual e testei nos aparelhos; a IA escreveu o código comigo, passo a passo. Do primeiro APK ao app com perfis e foto: **1 dia**.
+**Feito com IA, com método.** Rodrigo Gomes definiu o produto, decidiu o visual,
+testou e aprovou cada versão. O Claude (Anthropic) escreveu o código junto, passo a passo.
+
+| | |
+| --- | --- |
+| Testado em | moto g54 (Android) enviando para iPhone — v2.1 testada em 23/11/2026: lê com a tela "Pronto para encostar" aberta; não lê com o app fechado nem com o celular bloqueado |
+| Última revisão de código e segurança | 22/11/2026 — 3 achados médios corrigidos na v2.1 (comando NFC curto fechava o app, cartão respondia com o app fechado, senha fixa no build); 9 baixos adiados. [Relatório completo](revisoes/v2.0.md) |
+| Seus dados | Os perfis ficam só no seu celular; o app não usa internet. O contato vai no link depois do `#`, parte que o navegador nunca envia ao servidor — ninguém guarda seus dados |
+| Problemas e sugestões | [Issues do GitHub](https://github.com/rodrigovinigomes2023/vcf-nfc-card/issues) — projeto pessoal, sem prazo garantido de resposta |
+| Situação | Ativo |
+
+**Como funciona por dentro:** o app usa o Host Card Emulation do Android para se passar por uma etiqueta NFC Type 4 com um link. O contato vai como link porque o iPhone só abre links sozinho, sem app. A foto é reduzida a ~6 KB e viaja dentro do link, e uma página estática na Vercel monta o vCard no próprio navegador de quem recebe. Desde a v2.1, o cartão só responde com a tela "Pronto para encostar" aberta e o celular desbloqueado.
 
 ## Créditos
 
